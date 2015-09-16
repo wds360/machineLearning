@@ -10,3 +10,10 @@ def run_training_range(classifier, scoring_function, n_samples, X_train, y_train
         test_loss.append(scoring_function(test_pred, y_test))
     
     return [train_loss, test_loss]
+
+def compare_classifiers(classifier_dict, scoring_function, X_test, y_test):
+    performance = {}
+    for lbl, clf in zip(classifier_dict.keys(), classifier_dict.values()):
+        performance[lbl] = scoring_function(y_test, clf.predict(X_test))
+        
+    return performance
