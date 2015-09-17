@@ -1,5 +1,6 @@
 \documentclass[12pt]{article}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{graphicx,psfrag,epsf}
 \usepackage{enumerate}
 \usepackage{natbib}
@@ -64,11 +65,33 @@ The supervised learning algorithms considered in the present study are \textit{k
 
 \section{Methods}
 \label{sec:meth}
-In the sections that follow, we will provide a brief overview of the implementation details for each considered algorithm and highlight any unique steps or optimization procedures. 
+In the sections that follow, we will provide a brief overview of the dysphonia datasets used in this study and the assumptions made in working with these data. In addition, we will briefly discuss the implementation details for each considered algorithm and highlight any model-specific transformations of the data or optimization procedures.
 
+\subsection{Data}
+The two datasets considered in this study originate from Parkinson's Disease clinical diagnostic literature; specifically, from a research domain interested in correlating vocal dysphonia metrics with the disease. In the first study, researchers collected voice recordings from 20 persons with Parkinson's (PWP) and 20 otherwise healthy adults. Multiple types of sound recordings were collected from each participant (including sustained vowels, words, numbers and short sentences). The raw audio samples were then processed into a set of 26 features using various linear and time-frequency based metrics such as jitter, shimmer and pitch. The input data $X \in \mathbb{R}^{n \times m} $ where \textit{n} is the number of audio samples (\textit{n} = 1040) and \textit{m} is the dimensionality of the feature space (\textit{m} = 26); target labels are contained in a binary vector $ \boldsymbol{y} \in \mathbb{R}^n $. We therefore define our instance space as the 26 dimensional space of vocal dysphonia features sampled in \cite{Sakar2013}. The target hypothesis is a data-consistent function $ h : x \in \mathbb{R}^m \mapsto y \in \lbrace +,- \rbrace $. The objective is some tbd. 'best' function which partitions the instance space by mapping each example $ x \in X $ to a corresponding binary classification label $ y \in \boldsymbol{y} $ denoting Parkinson's Disease (PD+) or cognitively normative (PD-).
 
-\section{Verifications}
-\label{sec:verify}
+The second dataset considered in our analysis contains similar dysphonia features to \cite{Sakar2013}, however instances are associated with real-valued, continuous UPDRS scores. These data may be readily modeled as a regression problem; in order to render the data suitable for classification we generate proxy labels from the original distribution of UPDRS scores which represent the continuous scale as discrete 'stages' (the number of stages may be arbitrary, 5 has been selected so as to maintain consistency with the Parkinson's literature). In the associated study, researchers gathered a total of 5,875 voice recordings from 42 PWP. The vocal dysphonia metrics used are largely overlapping with \cite{Sakar2013}, however fewer metrics are considered. We define our target hypothesis as a consistent function $ h : x \in \mathbb{R}^m \mapsto y \in [1,5] $ where \textit{x, y, m} are defined similarly to the previous study (\textit{m} = 16).
+
+\includegraphics[scale=0.5]{updrs}
+
+Although the two datasets are very similar in their methods of data collection and overall approach, there are several key differences worth bearing in mind. The shape of these data is interesting in that: the Sakar study possesses less samples and a higher dimensional instance space when compared to Tsanas; it is possible that insufficient data and the curse of dimensionality play a significant factor in the generalization error of algorithms applied to Sakar. However, the sample distribution over classes in Sakar is perfectly uniform (20 in both PD+ and PD- classes), as opposed to the roughly gaussian distribution of UPDRS scores in Tsanas leading to imbalanced classes after partitioning the samples.
+
+Taking these observations further, given the low occurrence of Parkinsons, the real-world performance of a model trained on uniformally distributed samples will be far lower than the estimated generalization error during training and validation. This is due to the fact that the a-priori distribution is only artificially uniform, when in fact the true probability of a randomly selected individual having Parkinson's is only about 0.00013. Though this is still a significant portion, it is difficult to make strong assertions about clinical significance and diagnostic value in this context. In the Tsanas study, however, participants are assumed to be PD+ and the learning task is simply the prediction of the progression of the disease from voice samples. In this context, it seems much more likely that the prior distribution of the collected samples more closely match the true distribution of PWP.
+
+\subsection{Training}
+To derive maximum a-posteriori hypotheses given the aforementioned datasets, we apply the following preprocessing and training procedures which are roughly the same for all algorithms used:
+\begin{itemize}
+  \item Separate the raw-data feature columns \textit{X} from the label column \textbf{\textit{y}}
+  \item Randomly shuffle and split the data into distinct training and testing sets (1/3 held out for testing)
+  \item Scale the data to zero mean and unit variance using \texttt{StandardScaler} (the transformation is computed only from the training set, then applied to all data)
+  \item Train each algorithm using stratified \textit{k}-folds cross validation ($k=5$ in Sakar experiments, $k=3$ for Tsanas)\footnote{A smaller \textit{k} was used on Tsanas data to ensure that the distribution of each fold could match as closely as possible to the complete set of training labels}
+\end{itemize}
+
+\subsection{Algorithms and Evaluation}
+f1 score, loss fn for nn
+\section{Results}
+\subsection{Model Evaluation}
+\subsection{Performance Comparison}
 
 \section{Conclusion}
 \label{sec:conc}
