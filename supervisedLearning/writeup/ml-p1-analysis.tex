@@ -1,0 +1,95 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{graphicx,psfrag,epsf}
+\usepackage{enumerate}
+\usepackage{natbib}
+
+\newcommand{\blind}{0}
+
+\addtolength{\oddsidemargin}{-.75in}%
+\addtolength{\evensidemargin}{-.75in}%
+\addtolength{\textwidth}{1.5in}%
+\addtolength{\textheight}{1.3in}%
+\addtolength{\topmargin}{-.8in}%
+
+
+\begin{document}
+
+
+%\bibliographystyle{natbib}
+
+\def\spacingset#1{\renewcommand{\baselinestretch}%
+{#1}\small\normalsize} \spacingset{1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\if0\blind
+{
+  \title{\bf Applications of Supervised Learning to Parkinson's Disease Discrimination from Dysphonia Measurements}
+  \author{Michael Walton\\
+    Department of Computer Science, Georgia Institute of Technology\\}
+  \maketitle
+} \fi
+
+\if1\blind
+{
+  \bigskip
+  \bigskip
+  \bigskip
+  \begin{center}
+    {\LARGE\bf Title}
+\end{center}
+  \medskip
+} \fi
+
+\bigskip
+\begin{abstract}
+In this work we explore the application of a variety of supervised Machine Learning algorithms to a Parkinson's Disease (PD) speech pathology dataset. Our objective is the development of models capable of discriminating unseen Parkinsonian voice samples from normative (PD-negative) controls. Predictive classification models are principally assessed by comparing their performance as a function of training set sample size. Following from the methods employed in the associated study which accompanies this dataset, we also explore the impact of representing individual subjects' data using central tendency and dispersion measures across multiple samples. Ultimately, we have been able to derive models with comparable PD-discriminating performance to the originating study.
+\end{abstract}
+
+\spacingset{1.45}
+\section{Introduction}
+\label{sec:intro}
+
+Parkinson's disease (PD) is a neurodegeneritive central nervous system disorder characterized by progressive loss in motor control, speech and cognitive function. Common symptoms include tremor, difficulty speaking (dysphonia) and dementia. Most treatments for PD are effective only in the early motor stages of the disease which makes early detection crucial for improving patients' quality of life and long-term prognosis.
+
+Today, the majority of PD cases are diagnosed using the Unified Parkinson's Disease Rating Scale (UPDRS). This behavioral test panel assigns a numeric value which encodes the progression of the disease. The observation tests must be administered by a qualified neurologist making PD detection a time consumptive and costly procedure. The desire for a rapid, low-cost pre-screening diagnostic has motivated a number of studies which attempt to distinguish early and difficult to detect PD symptoms such subtle aperiodic fluctuations in voice recordings. Although a thorough description of these metrics is beyond the scope of this study, it suffices to understand that clinical speech pathology literature has identified vocal acoustic irregularities such as turbulent non-Gaussian noise in early stage PD patients. Determining if variability in these phonations can yeild a robust PD diagnostic remains a subject of active research.
+
+One such study, conducted by Sakar et al. \cite{Sakar2013} gathered audio samples from 20 persons with Parkinson's (PWP) and 20 otherwise healthy adults. The researchers gathered a series of voice samples from participants and extracted a set of 26 features using various linear and time-frequency based metrics such as jitter, shimmer and pitch. In the present study we define our instance space as the 26 dimensional space of acoustic features sampled in \cite{Sakar2013}. The target hypothesis is a consistent function mapping elements from the instance space to a binary classification label denoting Parkinson's Disease (PD+) or cognitively normative (PD-). To derive a maximum a-posteriori hypothesis given the aforementioned dataset, we split the data into distinct training and testing subsets and minimize error of a collection of learning algorithms on the training set. The generalization error on the test set is also recorded and compared.
+
+In \cite{Sakar2013} the researchers also propose a means of reducing the impact of inter-trial variability in samples taken from the same subject. This is accomplished by taking the mean and standard deviation of samples from a common participant such that \textit{m} participant samples map to a single instance for each participant. In effect, this increases the dimensionality of the instance space by a factor of two, while reducing the number of available samples by a factor of \textit{m}; making the number of samples equivalent to the number of participants. It is of interest in this study, and the Machine Learning course generally, to understand the relationship between the dimensionality of the input and number of training examples to generalization performance of a learning algorithm. To keep things interesting, we conjecture (in opposition to the results in \cite{Sakar2013}) that performing this preprocessing step may in fact hinder some algorithms' performance due to the curse of dimensionality in conjunction with a restriction of the number of samples available for training.
+
+The supervised learning algorithms considered in the present study are \textit{k}-Nearest Neighbor, Support Vector Machines, Artificial Neural Networks, Decision Trees and Boosting. The python modules \texttt{scipy, numpy,} and \texttt{scikit-learn} \cite{scipy} \cite{scikit-learn} are used extensively  throughout our implementation; the GPU-accelerated math compiler Theano \cite{bergstra+al:2010-scipy} is used in conjunction with convenience wrappers \texttt{lasagne} and \texttt{nolearn} for ANNs; Keka \cite{Hall2009} is utilized for pruned decision trees and boosted models.\cite{Tsanas2010}
+
+\section{Methods}
+\label{sec:meth}
+In the sections that follow, we will provide a brief overview of the implementation details for each considered algorithm and highlight any unique steps or optimization procedures. 
+
+
+\section{Verifications}
+\label{sec:verify}
+
+\section{Conclusion}
+\label{sec:conc}
+
+
+\bigskip
+\begin{center}
+{\large\bf SUPPLEMENTAL MATERIALS}
+\end{center}
+
+\begin{description}
+
+\item[Source Code:] The algorithms discussed in the present study along with data-handling, post-hoc statistics and visualizations are implemented in the form of an ipython notebook (parkinsons.ipynb)
+
+\item[Dependencies Install Script:] A python script which will fetch and install the  python modules required by the ipython notebook (dependencies.py)
+
+\item[Parkinson's Dataset:] Data set used in this study is contained in the folder pd-msr-data. This folder contains both raw audio samples (.wma) and extracted dysphonia measurements (.csv)
+
+\end{description}
+
+\bibliographystyle{plain}
+\bibliography{ml-p1.bib}
+
+\end{document} 
