@@ -90,14 +90,31 @@ To derive maximum a-posteriori hypotheses given the aforementioned datasets, we 
 For several algorithms we also applied an exhaustive, cross-validated parameter search using \texttt{GridSearchCV}. In this method, every combination of a specified parameter range is iteratively trained and evaluated using the cross-validation method previously described. The optimal parameter set is determined by the parameters that perform best over the average over the associated cross-validation runs.
 
 \subsection{Algorithms and Evaluation}
-In general, the performance measure we will assume is the F1 score. This metric defines accuracy as the harmonic mean of precision\footnote{ratio of true positives to all predicted positives} and recall\footnote{ratio of true positives to all actual positives}. In the case of binary classification, F1 is defined as
+In general, the performance measure we will assume is the F1 score. This metric defines accuracy as the harmonic mean of precision\footnote{ratio of true positives to all predicted positives} and recall\footnote{ratio of true positives to all actual positives}. In the case of binary classification, given precision $p$, recall $r$ and true positive, false positive and false negative rates denoted $tp$, $fp$ and $fn$ respectively; F1 is defined as
 \begin{equation}
 F1 = 2\frac{pr}{p+r} \ \textrm{where} \ p = \frac{tp}{tp + fp},\ r = \frac{tp}{tp + fn}
 \end{equation}
-This definition of accuracy was chosen because an algorithm that optimizes f1 treats precision and recall equally; that is, the learners' ability to correctly label the data is equally important to its ability to avoid false positives. In the case of multi-class classification, as we have defined for the Tsanas dataset, individual scores are computed for each class using a one-vs-rest method and the total score is taken as the average of the individual scores weighted by the occurrence of true instances of each label.
+This definition of accuracy was chosen because an algorithm that optimizes f1 treats precision and recall equally; that is, the learners' ability to correctly label the data is maximized while the occurrence of false positives is minimized. In the case of multi-class classification, as we have defined for the Tsanas dataset, individual scores are computed for each class using a one-vs-rest method and the total F1 score is defined by the average of the individual scores weighted by the frequency of true instances of each label.
+
+Unless otherwise specified, we have attempted to keep the learning algorithm implementation as consistent with the course material as possible; though some liberties have been taken with certain modular components that are particular to our application or the \texttt{scikit-learn} library. In the implementation of $k$-NN, we used the Minkowski distance defined over normed vector spaces which is the generalization of both Euclidian and Manhattan distance. Specifically, given points $X = (x_1, x_2, ... x_n), \ Y = (y_1, y_2, ... y_n) \in \mathbb{R}^n$
+\begin{equation}
+\delta_m(X,Y) = (\sum_{i=1}^n|x_i-y_i|^p)^{\frac{1}{p}}
+\end{equation}
+We chose to use the Minkowski distance measure to allow straightforward manipulation of the power parameter $p$\footnote{$p$ may take on any arbitrary value, when $p=1$, the measure is equivalent to the Manhattan distance, when $p=2$ the measure is equivalent to the Euclidean distance}. In the implementation of decision trees and the boosted version using the AdaBoost algorithm, the attribute selection criterion normally defined by entropy and corresponding information gain measures was replaced with the GINI impurity\footnote{In practice, we observed little to no difference between GINI impurity and information gain with regards to attribute selection and overall performance.}; given data $D$ divided into $n$ subsets $d_i$ by an attribute $A$ we define:
+\begin{equation}
+gini_A(D) = \sum_{i=1}^n\frac{|d_i|}{|D|}(1-\sum_{j=1}^m p(c_j|d_i)^2)
+\end{equation}
+Which is the sum of the relative probabilities $p$ of label $c_j$ given the subset $d_i$ taken over $m$ classes, weighted by size of the subset in proportion to the total size of the data.
+
+In our neural network implementation, we elected to use the tangent hyperbolic function $tanh$ in place of the generic sigmoid transfer function. This was based on its comparable non-linearity and less compute intensive calculation allowing larger networks and faster updates. Weight updates were performed with stochastic gradient descent using the weight update rule:
+\begin{equation}
+\omega_i^n \leftarrow \omega_i^{n-1}-\eta \frac{\partial\epsilon_n(\omega)}{\partial\omega_i} = \omega_i^{n-1}-\eta \frac{\partial y_\omega(x_n)}{\partial \omega_i}(y_\omega(x_n)-t_n)
+\end{equation}
+We update the weight vector $\omega$ of layer $i$, on the $n^th$ iteration by computing the old $\omega_i^{n-1}$ less the error $\epsilon$ gradient with respect to $\omega$ approximated given $n$ scaled by some learning constant $\eta$. The second equation is an expansion where the error gradient is explicitly denoted in terms of the input vector $x$, target output $t$ and network transformation $y_\omega(x)$ assuming parameters $\omega$.
 
 \section{Results}
 \subsection{Model Evaluation}
+
 \subsection{Performance Comparison}
 
 \section{Conclusion}
