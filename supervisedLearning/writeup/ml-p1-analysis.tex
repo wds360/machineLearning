@@ -10,9 +10,9 @@
 
 \addtolength{\oddsidemargin}{-.75in}%
 \addtolength{\evensidemargin}{-.75in}%
-\addtolength{\textwidth}{1.5in}%
-\addtolength{\textheight}{1.3in}%
-\addtolength{\topmargin}{-.8in}%
+\addtolength{\textwidth}{1.6in}%
+\addtolength{\textheight}{1.6in}%
+\addtolength{\topmargin}{-1.2in}%
 
 
 \begin{document}
@@ -34,16 +34,7 @@
   \maketitle
 } \fi
 
-\if1\blind
-{
-  \bigskip
-  \bigskip
-  \bigskip
-  \begin{center}
-    {\LARGE\bf Title}
-\end{center}
-  \medskip
-} \fi
+
 
 \begin{abstract}
 In this work we explore the application of supervised Machine Learning algorithms to Parkinson's Disease (PD) speech pathology datasets. Our objectives include the development of models capable of discriminating unseen Parkinsonian voice samples from normative controls and the classification of known PD+ samples into one of five distinct stages of disease progression. Generalization performance is estimated using both cross-validation and a disjoint test set. We conclude with an analysis of the suitability of each algorithm as a potentially clinically significant diagnostic tool.
@@ -68,9 +59,11 @@ The two datasets considered in this study originate from Parkinson's Disease cli
 
 The second dataset, collected by Tsanas et al.\cite{Tsanas2010} contains similar dysphonia features to Sakar, however instances are associated with continuous, real-valued UPDRS labels. These data may be readily modeled as a regression problem; in order to render the data suitable for classification we generate proxy labels from the original distribution of UPDRS scores which represent the continuous scale as discrete 'stages' (the number of stages may be arbitrary, 5 has been selected so as to maintain consistency with the Parkinson's literature). In the associated study, researchers gathered a total of 5,875 voice recordings from 42 PWP. The vocal dysphonia metrics used are largely overlapping with \cite{Sakar2013}, however fewer metrics are considered. We define our target hypothesis as a consistent function $ h : x \in \mathbb{R}^m \mapsto y \in [1,5] $ where \textit{x, y, m} are defined similarly to the previous study (\textit{m} = 16).
 
-\begin{center}
-\includegraphics[scale=0.5]{updrs}
-\end{center}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.4]{updrs}
+    \caption{Tsanas Dataset: Class label Distribution}
+\end{figure}
 
 Although the two datasets are very similar in their methods of data collection and overall approach, there are several key differences worth bearing in mind. The shape of these data is interesting in that: the Sakar study possesses less samples and a higher dimensional instance space when compared to Tsanas; it is possible that insufficient data and the curse of dimensionality play a significant factor in the generalization error of algorithms applied to Sakar. However, the sample distribution over classes in Sakar is perfectly uniform (20 in both PD+ and PD- classes), as opposed to the roughly gaussian distribution of UPDRS scores in Tsanas leading to imbalanced classes after partitioning the samples.
 
@@ -113,18 +106,22 @@ We update the weight vector $\omega$ of layer $i$, on the $n^th$ iteration by co
 \section{Results}
 \subsection{Model Evaluation}
 The $k$-NN models trained on these datasets were tested over a range of values for $k$, with cross-validation applied to each unique value. In the Tsanas dataset, we observed a strong correlation between classification performance and $k$; specifically, for $k > 8$, classifier f1 scores decrease linearly in $k$. In the Sakar dataset, however, we observed no such trend. f1 variance across cross validation folds, however, was much higher ($\sigma^2=0.0004$) averaged over all $k$ vs the Tsanas dataset ($\sigma^2=0.0001$). In these experiments we observe the expected behavior that as elements that are increasingly distant in feature space are incorporated into the prediction, classification performance decreases.
-\begin{center}
-\includegraphics[scale=0.5]{knn}
-\end{center}
+\begin{figure}
+    \centering
+    \includegraphics[width=8cm]{knn}
+    \caption{$k$-NN Performance Over $k$}
+\end{figure}
 
 The development of decision trees proceeded similarly, cross validated f1 scores were measured for classifiers with different pruning depths. It was observed in both the Tsanas and and Sakar datasets that performance first increased as a function of maximum depth, then remained unchanged. After the tree reaches some optimum depth increasing the pruned depth has no effect as the algorithm will continue to generate the same optimized tree irrespective of the depth limitation.
-\begin{center}
-\includegraphics[scale=0.5]{tsanasDecisionTree}
-\end{center}
+\begin{figure}%
+    \centering
+    \subfloat[Decision Tree \texttt{max\_depth}]{{\includegraphics[width=8cm]{tsanasDecisionTree} }}%
+    \qquad
+    \subfloat[AdaBoost \texttt{n\_estimators}]{{\includegraphics[width=8cm]{sakarBoosting} }}%
+    \caption{Decision Tree and Boosted Trees CV Parameter Search}
+\end{figure}
+
 Boosting optimization was conducted by testing over a range of values for the maximum number of sub-estimators that could be generated by AdaBoost. On both the Tsanas and Sakar datasets, around 5 weak learners was sufficient to achieve performance better than uniform random guessing and 20-30 was enough to achieve comparable performance to a classifier with double the number of estimators.
-\begin{center}
-\includegraphics[scale=0.5]{sakarBoosting}
-\end{center}
 
 Two Support vector machines were implemented one with a sigmoid kernel and another with a Radial Basis Function (RBF) kernel. Cross validated grid search was performed over hyperparameters $C$ and either $\gamma$ or $x_0$ for sigmoid and RBF kernels respectively.\footnote{Kernel coefficients $\gamma$ = the kernel coefficient of the radial basis function. $x_0$ = the constant term of the sigmoid function} Where $C$ is the misclassification penalty term defined such that large values of $C$ allow smaller margin hyperplanes to be selected if more training points are classified correctly. Conversely, for small values of $C$, the optimizer will prefer higher-margin separating hyperplanes at the cost of increased training error. In general, the RBF kernel performed better across most observed values of $\gamma$ and $C$ on both datasets.
 
@@ -133,38 +130,44 @@ Two Support vector machines were implemented one with a sigmoid kernel and anoth
     \subfloat[RBF Kernel]{{\includegraphics[width=8cm]{sakarRbf} }}%
     \qquad
     \subfloat[Sigmoid Kernel]{{\includegraphics[width=8cm]{sakarSigmoid} }}%
+    \caption{SVM Performance Over $\gamma, C, x_0$}
     \label{fig:svm}%
 \end{figure}
 
 \subsection{Performance Comparison}
 Performance on the Sakar dataset was similar for all the assessed algorithms. Surprisingly, generalization performance did not improve much as the size of the training set increased (though there is a clear upward trend in both training and testing f1 scores). That is, most models converged to a level of performance that did not vary much after the training set size exceeded ~200 examples. The exceptions to this observation were the sigmoid SVM and the decision tree, which exhibited relatively erratic performance as a function of training set size.
-\begin{center}
-\includegraphics[width=19cm]{sakarTrainTest}
-\end{center}
+\begin{figure}
+    \centering
+    \includegraphics[width=19cm]{sakarTrainTest}
+    \caption{Sakar Dataset Learning Curves}
+\end{figure}
 The majority of algorithms trained on the Tsanas dataset exhibit the characteristic logarithmic increase in performance as a function of training set size. The variation in the types of trends we observe however is worth noting.
-\begin{center}
-\includegraphics[width=19cm]{tsanasTrainTest}
-\end{center}
+\begin{figure}
+    \centering
+    \includegraphics[width=19cm]{tsanasTrainTest}
+    \caption{Tsanas Dataset Learning Curves}
+\end{figure}
 In the case of AdaBoost and the sigmoid SVM, there is tight agreement and overall poor performance on both the training and testing sets. This may indicate that the algorithms are failing to learn a good approximation to the target hypothesis regardless of the size of the training set. This may be indicative of an incompatibility of the algorithms' representational bias with respect to the data. That is, the target hypothesis $h_t$ does not exist in the hypothesis space of the algorithm $h_t \notin H$. This may be the case for the AdaBoost models. We draw this conclusion by investigating the structure of a single decision tree trained on the Tsanas dataset. The attributes closest to the root of the decision tree separate the data based primarily on patient metadata such as age and gender. It may be that only after these assumptions do the vocal dysphonia measures carry much statistical significance with respect to the labels. Therefore a collection of weak learners correlating simple rule sets to the labels may not be sufficient to aggregate into a coherent hypothesis.  There may be some inductive bias of the algorithm impacting performance as well. For example, kernel function selection often relies on some a-priori knowledge of the data; judging from its behavior it is likely that the sigmoid SVM suffers from poor kernel selection.
-
-A more expressive means of visualizing multi-class performance on the Tsanas dataset is in the form of Confusion Matrices. Each column of each matrix represents the instances in the predicted stage label, each row indicates the actual stage label. Interestingly, from this arrangement we can directly observe that the learners that fit the data well have a distribution along the diagonal that roughly follows the actual distribution of labels. This follows from the fact that the algorithms all seek to maximize the weighted f1 score, which assigns weighted importance to samples as a function of the probability of their corresponding label.
-
 \begin{figure}%
     \centering
     \subfloat[Sakar Dataset]{{\includegraphics[width=8cm]{sakarAlgs} }}%
     \qquad
     \subfloat[Tsanas Dataset]{{\includegraphics[width=8cm]{tsanasAlgs} }}%
+    \caption{Best Model Algorithm Comparison}
     \label{fig:algorithm_perf}%
 \end{figure}
 
-\begin{center}
-\includegraphics[width=19cm]{tsanasCM}
-\end{center}
+A more expressive means of visualizing multi-class performance on the Tsanas dataset is in the form of Confusion Matrices. Each column of each matrix represents the instances in the predicted stage label, each row indicates the actual stage label. Interestingly, from this arrangement we can directly observe that the learners that fit the data well have a distribution along the diagonal that roughly follows the actual distribution of labels. This follows from the fact that the algorithms all seek to maximize the weighted f1 score, which assigns importance to samples as a function of the probability of their corresponding label.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=19cm]{tsanasCM}
+    \caption{Tsanas Dataset Confusion Matrices}
+\end{figure}
 
 \section{Conclusion}
 \label{sec:conc}
-
-
+In this study we have explored the value and utility of Supervised Learning algorithms in the development of predictive models for Parkinson's Disease. We have explored these data from the perspective of two unique classification paradigms (binary and multi-class). In the former, we applied five algorithms to voice dysphonia measurements to discriminate PD+ from PD- voice recordings. In the latter, we applied related methods with appropriate modifications to classify the severity of Parkinson's Disease to labels derived from a discretization of the Unified Parkinson's Disease Rating Scale. From our analysis, we have observed that decision trees achieve the best f1 score in most contexts. The performance of sigmoid kernel SVMs and boosted trees indicates that these methods may be unsuited to the multi-class scenario as we have defined it. Further, we have gained some insight into the nature of the PD voice diagnostic problem which suggests that augmenting dysphonia measurements with patient metadata such as age and gender may improve classification performance. Overall, we have quantified and compared the utility of supervised learning algorithms in the context of Parkinson's Disease speech pathology.
 
 \bibliographystyle{plain}
 \bibliography{ml-p1.bib}
