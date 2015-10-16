@@ -1,4 +1,5 @@
 import csv
+from sklearn.cross_validation import train_test_split
 
 label_idx = 'Survived'
 embarked_labels = {'':'0', 'S':'0','C':'1', 'Q':'2'}
@@ -22,3 +23,16 @@ with open("titanic.csv") as csvfile:
         embarked = embarked_labels[row['Embarked']]
 
         features.append([pclass,sex,age,sibsp,parch,fare,embarked])
+
+X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.33, random_state=42)
+
+def write_array(filename, array):
+    with open(filename, 'w') as csvfile:
+        writer = csv.writer(csvfile)
+        for row in array:
+            writer.writerow(row)
+
+write_array('titanicTrain.csv',X_train)
+write_array('titanicTrainLabels.csv',y_train)
+write_array('titanicTest.csv',X_test)
+write_array('titanicTestLabels.csv',y_test)

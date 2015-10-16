@@ -26,8 +26,8 @@ import java.text.*;
  */
 public class OptimizeNeualNet {
 
-    private static Instance[] trainInstances = initializeInstances("crxTrain.txt", "crxTrainLabels.txt");
-    private static Instance[] testInstances = initializeInstances("crxTest.txt", "crxTestLabels.txt");
+    private static Instance[] trainInstances = initializeInstances("titanicTrain.csv", "titanicTrainLabels.csv");
+    private static Instance[] testInstances = initializeInstances("titanicTest.csv", "titanicTestLabels.csv");
 
     private static int inputLayer = 46, hiddenLayer = 23, outputLayer = 1;
     private static BackPropagationNetworkFactory factory = new BackPropagationNetworkFactory();
@@ -47,8 +47,8 @@ public class OptimizeNeualNet {
 
     private static Instance[] initializeInstances(String dataFile, String labelFile) {
 
-        DataSetReader dsr = new CSVDataSetReader(new File("").getAbsolutePath() + "/src/opt/test/" + dataFile);
-        DataSetReader lsr = new CSVDataSetReader(new File("").getAbsolutePath() + "/src/opt/test/" + labelFile);
+        DataSetReader dsr = new CSVDataSetReader(new File("").getAbsolutePath() + "data/" + dataFile);
+        DataSetReader lsr = new CSVDataSetReader(new File("").getAbsolutePath() + "data/" + labelFile);
         DataSet ds;
         DataSet labs;
 
