@@ -81,7 +81,7 @@ public class OptimizeNeualNet {
 
         oa[0] = new RandomizedHillClimbing(nnop[0]);
         oa[1] = new SimulatedAnnealing(1E11, .95, nnop[1]);
-        oa[2] = new RandomizedHillClimbing(nnop[2]);//new StandardGeneticAlgorithm(100, 50, 5, nnop[2]);
+        oa[2] = new StandardGeneticAlgorithm(100, 50, 5, nnop[2]);
 
         for(int i = 0; i < oa.length; i++) {
 
