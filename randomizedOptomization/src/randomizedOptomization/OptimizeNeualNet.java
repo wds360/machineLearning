@@ -104,12 +104,7 @@ public class OptimizeNeualNet {
                 networks[i].run();
 
                 trainErr += measure.value(new Instance(networks[i].getOutputValues()), trainInstances[j]);
-                
-                //predicted = Double.parseDouble(trainInstances[j].getLabel().toString());
-                //actual = Double.parseDouble(networks[i].getOutputValues().toString());
-
-                //double trash = Math.abs(predicted - actual) < 0.5 ? correct++ : incorrect++;
-
+        
             }
             end = System.nanoTime();
             testingTime = end - start;
@@ -125,12 +120,7 @@ public class OptimizeNeualNet {
             for(int j = 0; j < testInstances.length; j++) {
                 networks[i].setInputValues(testInstances[j].getData());
                 networks[i].run();
-
-                //predicted = Double.parseDouble(testInstances[j].getLabel().toString());
-                //actual = Double.parseDouble(networks[i].getOutputValues().toString());
-
-                //double trash = Math.abs(predicted - actual) < 0.5 ? correct++ : incorrect++;
-                
+      
                 testErr += measure.value(new Instance(networks[i].getOutputValues()), testInstances[j]);
 
             }
