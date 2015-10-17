@@ -26,10 +26,10 @@ import java.text.*;
  */
 public class OptimizeNeualNet {
 
-    private static Instance[] trainInstances = initializeInstances("titanicTrain.csv", "titanicTrainLabels.csv");
-    private static Instance[] testInstances = initializeInstances("titanicTest.csv", "titanicTestLabels.csv");
+    private static Instance[] trainInstances = initializeInstances("digitsTrain.csv", "digitsTrainLabels.csv");
+    private static Instance[] testInstances = initializeInstances("digitsTest.csv", "digitsTestLabels.csv");
 
-    private static int inputLayer = 6, hiddenLayer = 7, outputLayer = 1;
+    private static int inputLayer = 64, hiddenLayer = 20, outputLayer = 10;
     private static BackPropagationNetworkFactory factory = new BackPropagationNetworkFactory();
     
     private static ErrorMeasure measure = new SumOfSquaresError();
@@ -56,9 +56,9 @@ public class OptimizeNeualNet {
             labs = lsr.read();
             Instance[] instances = ds.getInstances();
             Instance[] labels = labs.getInstances();
-
+            
             for(int i = 0; i < instances.length; i++) {
-                instances[i].setLabel(new Instance(labels[i].getData().get(0)));
+                instances[i].setLabel(new Instance(labels[i].getData()));
             }
 
             return instances;
@@ -81,7 +81,7 @@ public class OptimizeNeualNet {
 
         oa[0] = new RandomizedHillClimbing(nnop[0]);
         oa[1] = new SimulatedAnnealing(1E11, .95, nnop[1]);
-        oa[2] = new RandomizedHillClimbing(nnop[2]);//new StandardGeneticAlgorithm(200, 100, 10, nnop[2]);
+        oa[2] = new RandomizedHillClimbing(nnop[2]);//new StandardGeneticAlgorithm(100, 50, 5, nnop[2]);
 
         for(int i = 0; i < oa.length; i++) {
 
@@ -97,34 +97,41 @@ public class OptimizeNeualNet {
             Instance optimalInstance = oa[i].getOptimal();
             networks[i].setWeights(optimalInstance.getData());
 
-            double predicted, actual;
+            double trainErr = 0;
             start = System.nanoTime();
             for(int j = 0; j < trainInstances.length; j++) {
                 networks[i].setInputValues(trainInstances[j].getData());
                 networks[i].run();
 
-                predicted = Double.parseDouble(trainInstances[j].getLabel().toString());
-                actual = Double.parseDouble(networks[i].getOutputValues().toString());
+                trainErr += measure.value(new Instance(networks[i].getOutputValues()), trainInstances[j]);
+                
+                //predicted = Double.parseDouble(trainInstances[j].getLabel().toString());
+                //actual = Double.parseDouble(networks[i].getOutputValues().toString());
 
-                double trash = Math.abs(predicted - actual) < 0.5 ? correct++ : incorrect++;
+                //double trash = Math.abs(predicted - actual) < 0.5 ? correct++ : incorrect++;
 
             }
             end = System.nanoTime();
             testingTime = end - start;
 
-            results +=  oaNames[i] + "," + it + "," + df.format(incorrect / (correct + incorrect)) + ","; 
+            results +=  oaNames[i] + "," + it + "," + df.format(trainErr / trainInstances.length) + ","; 
 
             correct = 0;
             incorrect = 0;
+            
+            double testErr = 0;
+            
             start = System.nanoTime();
             for(int j = 0; j < testInstances.length; j++) {
                 networks[i].setInputValues(testInstances[j].getData());
                 networks[i].run();
 
-                predicted = Double.parseDouble(testInstances[j].getLabel().toString());
-                actual = Double.parseDouble(networks[i].getOutputValues().toString());
+                //predicted = Double.parseDouble(testInstances[j].getLabel().toString());
+                //actual = Double.parseDouble(networks[i].getOutputValues().toString());
 
-                double trash = Math.abs(predicted - actual) < 0.5 ? correct++ : incorrect++;
+                //double trash = Math.abs(predicted - actual) < 0.5 ? correct++ : incorrect++;
+                
+                testErr += measure.value(new Instance(networks[i].getOutputValues()), testInstances[j]);
 
             }
             end = System.nanoTime();
@@ -132,7 +139,7 @@ public class OptimizeNeualNet {
             testingTime /= 2.0;
             testingTime /= Math.pow(10, 9);
 
-            results += df.format(incorrect / (correct + incorrect)) + ","
+            results += df.format(testErr / testInstances.length) + ","
                      + df.format(trainingTime) + "," + df.format(testingTime) + "\n";
 
         }
