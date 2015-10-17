@@ -1,28 +1,23 @@
 import csv
 from sklearn.cross_validation import train_test_split
 
-label_idx = 'Survived'
-embarked_labels = {'':'0', 'S':'0','C':'1', 'Q':'2'}
-selected_feature_idx = ['Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare', 'Embarked']
-
 labels = []
 features = []
 
-with open("titanic.csv") as csvfile:
+with open("titanic2.csv") as csvfile:
     reader = csv.DictReader(csvfile)
 
     for row in reader:
-        labels.append(row[label_idx])
+        labels.append(row['survived'])
 
-        pclass = row['Pclass']
-        sex = '0' if row['Sex'] is 'male' else '1'
-        age = '-1' if row['Age'] is '' else row['Age']
-        sibsp = row['SibSp']
-        parch = row['Parch']
-        fare = row['Fare']
-        embarked = embarked_labels[row['Embarked']]
+        firstclass = row['firstclass']
+        secondclass = row['secondclass']
+        thirdclass = row['thirdclass']
+        crew = row['crew']
+        child = row['child']
+        female = row['female']
 
-        features.append([pclass,sex,age,sibsp,parch,fare,embarked])
+        features.append([firstclass,secondclass,thirdclass,crew,child,female])
 
 X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.33, random_state=42)
 

@@ -21,7 +21,7 @@ import java.text.*;
  * find optimal weights to a neural network that is classifying credit applications as either 
  * success or failure. 
  *
- * @author Adam Acosta
+ * @author Michael Walton adapted from Adam Acosta and abalone ABAGAIL example
  * @version 1.0
  */
 public class OptimizeNeualNet {
@@ -29,7 +29,7 @@ public class OptimizeNeualNet {
     private static Instance[] trainInstances = initializeInstances("titanicTrain.csv", "titanicTrainLabels.csv");
     private static Instance[] testInstances = initializeInstances("titanicTest.csv", "titanicTestLabels.csv");
 
-    private static int inputLayer = 46, hiddenLayer = 23, outputLayer = 1;
+    private static int inputLayer = 6, hiddenLayer = 7, outputLayer = 1;
     private static BackPropagationNetworkFactory factory = new BackPropagationNetworkFactory();
     
     private static ErrorMeasure measure = new SumOfSquaresError();
@@ -46,9 +46,8 @@ public class OptimizeNeualNet {
     private static DecimalFormat df = new DecimalFormat("0.000");
 
     private static Instance[] initializeInstances(String dataFile, String labelFile) {
-
-        DataSetReader dsr = new CSVDataSetReader(new File("").getAbsolutePath() + "data/" + dataFile);
-        DataSetReader lsr = new CSVDataSetReader(new File("").getAbsolutePath() + "data/" + labelFile);
+        DataSetReader dsr = new CSVDataSetReader(new File("").getAbsolutePath() + "/data/" + dataFile);
+        DataSetReader lsr = new CSVDataSetReader(new File("").getAbsolutePath() + "/data/" + labelFile);
         DataSet ds;
         DataSet labs;
 
@@ -82,7 +81,7 @@ public class OptimizeNeualNet {
 
         oa[0] = new RandomizedHillClimbing(nnop[0]);
         oa[1] = new SimulatedAnnealing(1E11, .95, nnop[1]);
-        oa[2] = new StandardGeneticAlgorithm(200, 100, 10, nnop[2]);
+        oa[2] = new RandomizedHillClimbing(nnop[2]);//new StandardGeneticAlgorithm(200, 100, 10, nnop[2]);
 
         for(int i = 0; i < oa.length; i++) {
 

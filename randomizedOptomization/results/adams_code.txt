@@ -1,0 +1,10 @@
+RHC,1000,0.372,0.407,2.475,0.060
+SA,1000,0.349,0.390,2.582,0.021
+GA,1000,0.344,0.322,272.057,0.022
+
+Algorithm Name Abbreviation
+Number of Iterations
+Training Error Rate
+Testing Error Rate
+Training Time
+Testing Time
