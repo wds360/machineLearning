@@ -1,4 +1,5 @@
-package randomizedOptomization;
+package opt.test;
+
 import dist.*;
 import opt.*;
 import opt.example.*;
@@ -18,8 +19,8 @@ import java.text.*;
 
 /**
  * Implementation of randomized hill climbing, simulated annealing, and genetic algorithm to
- * find optimal weights to a neural network that is classifying credit applications as either 
- * success or failure. 
+ * find optimal weights to a neural network that is classifying credit applications as either
+ * success or failure.
  *
  * @author Michael Walton adapted from Adam Acosta and abalone ABAGAIL example
  * @version 1.0
@@ -31,7 +32,7 @@ public class OptimizeNeualNet {
 
     private static int inputLayer = 64, hiddenLayer = 20, outputLayer = 10;
     private static BackPropagationNetworkFactory factory = new BackPropagationNetworkFactory();
-    
+
     private static ErrorMeasure measure = new SumOfSquaresError();
 
     private static DataSet set = new DataSet(trainInstances);
@@ -56,7 +57,7 @@ public class OptimizeNeualNet {
             labs = lsr.read();
             Instance[] instances = ds.getInstances();
             Instance[] labels = labs.getInstances();
-            
+
             for(int i = 0; i < instances.length; i++) {
                 instances[i].setLabel(new Instance(labels[i].getData()));
             }
@@ -104,23 +105,23 @@ public class OptimizeNeualNet {
                 networks[i].run();
 
                 trainErr += measure.value(new Instance(networks[i].getOutputValues()), trainInstances[j]);
-        
+
             }
             end = System.nanoTime();
             testingTime = end - start;
 
-            results +=  oaNames[i] + "," + it + "," + df.format(trainErr / trainInstances.length) + ","; 
+            results +=  oaNames[i] + "," + it + "," + df.format(trainErr / trainInstances.length) + ",";
 
             correct = 0;
             incorrect = 0;
-            
+
             double testErr = 0;
-            
+
             start = System.nanoTime();
             for(int j = 0; j < testInstances.length; j++) {
                 networks[i].setInputValues(testInstances[j].getData());
                 networks[i].run();
-      
+
                 testErr += measure.value(new Instance(networks[i].getOutputValues()), testInstances[j]);
 
             }
