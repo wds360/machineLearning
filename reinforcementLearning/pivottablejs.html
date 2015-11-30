@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PivotTable.js</title>
+        
+        <!-- external libs from cdnjs -->
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/pivottable/1.6.3/pivot.min.css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/1.6.3/pivot.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/1.6.3/d3_renderers.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/1.6.3/c3_renderers.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/1.6.3/export_renderers.min.js"></script>
+
+        <style>
+            body {font-family: Verdana;}
+            .node {
+              border: solid 1px white;
+              font: 10px sans-serif;
+              line-height: 12px;
+              overflow: hidden;
+              position: absolute;
+              text-indent: 2px;
+            }
+            .c3-line, .c3-focused {stroke-width: 3px !important;}
+            .c3-bar {stroke: white !important; stroke-width: 1;}
+            .c3 text { font-size: 12px; color: grey;}
+            .tick line {stroke: white;}
+            .c3-axis path {stroke: grey;}
+            .c3-circle { opacity: 1 !important; }
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript">
+            $(function(){
+                if(window.location != window.parent.location)
+                    $("<a>", {target:"_blank", href:""})
+                        .text("[pop out]").prependTo($("body"));
+                    
+                $("#output").pivotUI( 
+                    $.csv.toArrays($("#output").text()), 
+                    { 
+                        renderers: $.extend(
+                            $.pivotUtilities.renderers, 
+                            $.pivotUtilities.c3_renderers, 
+                            $.pivotUtilities.d3_renderers,
+                            $.pivotUtilities.export_renderers
+                            ),
+                        hiddenAttributes: [""]
+                    }
+                ).show();
+             });
+        </script>
+        <div id="output" style="display: none;">,Value Iteration,Policy Iteration,Q Learning,Value Iteration_ms,Policy Iteration_ms,Q Learning_ms
+1,130,162,113,162,6,16
+2,163,233,59,17,1,3
+3,137,48,23,13,1,2
+4,16,13,44,21,1,4
+5,16,12,43,16,2,9
+6,10,13,44,19,3,6
+7,13,25,21,16,3,11
+8,14,12,11,23,3,4
+9,11,9,42,8,4,5
+10,10,10,11,7,4,4
+11,9,12,15,4,4,4
+12,13,14,9,7,4,7
+13,16,11,16,4,5,6
+14,9,12,9,4,4,8
+15,11,10,11,4,15,22
+16,9,13,9,11,12,10
+17,10,16,12,8,11,7
+18,10,13,20,5,15,8
+19,9,18,9,9,15,4
+20,13,16,9,6,11,6
+21,10,12,17,7,14,8
+22,11,15,11,10,17,4
+23,10,10,17,9,14,5
+24,22,13,9,14,23,4
+25,11,12,10,5,23,6
+26,12,14,13,5,16,6
+27,15,14,19,5,17,9
+28,11,11,11,6,17,8
+29,13,11,16,10,19,6
+30,11,12,14,6,19,10
+31,9,10,34,8,7,9
+32,19,12,17,10,7,7
+33,9,14,10,8,7,5
+34,9,10,10,6,7,10
+35,10,10,11,22,9,9
+36,10,9,11,17,9,11
+37,11,11,11,12,8,9
+38,12,13,11,21,8,5
+39,11,14,16,7,11,6
+40,11,9,10,7,12,5
+41,10,10,14,9,10,5
+42,11,13,16,10,9,4
+43,10,15,12,13,9,6
+44,20,12,20,11,9,6
+45,11,11,32,12,9,6
+46,14,9,16,7,9,7
+47,9,9,20,8,9,7
+48,10,11,11,12,10,6
+49,11,14,10,11,13,12
+50,9,12,12,8,12,5
+51,11,13,15,8,14,4
+52,12,11,13,25,12,4
+53,10,10,15,42,15,4
+54,10,14,26,19,25,4
+55,12,12,23,24,40,4
+56,12,9,10,25,31,4
+57,10,9,12,25,35,5
+58,11,22,16,14,16,4
+59,15,11,12,11,13,5
+60,10,11,11,9,14,5
+61,9,10,22,9,19,4
+62,10,10,12,9,34,5
+63,17,9,53,12,30,7
+64,9,12,11,10,36,5
+65,9,13,27,11,15,5
+66,10,11,42,12,54,4
+67,11,10,16,13,14,5
+68,9,11,57,10,14,5
+69,10,12,11,11,14,4
+70,15,13,10,12,15,5
+71,14,13,13,12,14,8
+72,11,11,18,11,16,6
+73,9,9,16,11,16,6
+74,11,13,17,11,17,5
+75,10,9,21,11,15,5
+76,13,12,13,29,14,5
+77,14,10,14,26,14,6
+78,9,13,9,29,17,8
+79,24,15,10,25,19,5
+80,10,16,12,23,32,5
+81,9,11,10,20,17,8
+82,10,10,10,12,19,5
+83,10,9,11,15,17,7
+84,10,12,12,13,31,5
+85,10,16,17,15,24,6
+86,11,13,16,13,18,8
+87,13,11,10,16,24,10
+88,13,9,21,15,20,8
+89,9,10,12,15,19,6
+90,9,10,12,17,18,6
+91,17,10,14,14,18,7
+92,10,15,12,16,19,7
+93,12,11,13,14,17,8
+94,9,13,14,14,17,6
+95,11,12,14,15,21,6
+96,9,11,10,14,19,6
+97,9,11,10,14,20,5
+98,11,10,9,14,19,7
+99,9,13,12,17,21,7
+100,9,15,12,15,19,7
+</div>
+    </body>
+</html>

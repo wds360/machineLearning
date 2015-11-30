@@ -1,0 +1,270 @@
+/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/bin/java -Didea.launcher.port=7536 "-Didea.launcher.bin.path=/Applications/IntelliJ IDEA 15 CE.app/Contents/bin" -Dfile.encoding=UTF-8 -classpath "/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/JObjC.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/deploy.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/ext/dnsns.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/ext/localedata.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/ext/sunec.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/ext/sunjce_provider.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/ext/sunpkcs11.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/ext/zipfs.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/htmlconverter.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/j3dcore.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/j3dutils.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/javaws.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/jfxrt.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/management-agent.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/plugin.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/vecmath.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/lib/ant-javafx.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/lib/dt.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/lib/javafx-doclet.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/lib/javafx-mx.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/lib/jconsole.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/lib/sa-jdi.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/lib/tools.jar:/Users/michaelwalton/workspace/gatech/assignment4/out/production/assignment4:/Users/michaelwalton/workspace/gatech/assignment4/lib/commons-beanutils-1.6.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/snakeyaml-1.13.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/ejml-0.25.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/junit-4.11.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/csparsej-1.1.1.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/commons-math3-3.2.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/jackson-core-2.2.3.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/weka.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/commons-collections-2.1.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/JavaRLGlueCodec.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/joptimizer-3.2.0.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/servlet.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/trove.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/jackson-annotations-2.2.3.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/jcommon-1.0.21.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/weka-src.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/xml-apis-1.0.b2.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/commons-logging-1.1.1.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/commons-lang3-3.1.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/colt-1.2.0.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/log4j-1.2.14.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/SCPSolver.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/LPSOLVESolverPack.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/hamcrest-core-1.3.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/joptimizer-3.3.0.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/jfreechart-1.0.17.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/jackson-databind-2.2.3.jar:/Users/michaelwalton/workspace/gatech/assignment4/lib/guava-18.0.jar:/Applications/IntelliJ IDEA 15 CE.app/Contents/lib/idea_rt.jar" com.intellij.rt.execution.application.AppMain burlap.assignment4.HardGridWorldLauncher
+/////Hard Grid World Analysis/////
+
+This is your grid world:
+[0,0,0,1,0,0,1,0,0,0,0]
+[0,0,0,0,0,0,1,0,0,0,0]
+[0,0,0,1,0,0,0,0,1,0,0]
+[0,1,0,1,0,0,0,0,1,0,0]
+[0,1,1,0,1,1,1,1,1,0,0]
+[0,0,0,0,0,0,0,0,1,0,0]
+[1,1,1,0,0,1,0,0,0,0,1]
+[0,0,0,0,1,1,1,0,0,1,0]
+[0,0,0,0,1,0,1,0,0,0,0]
+[0,0,0,0,1,0,1,0,0,0,0]
+
+
+
+//Value Iteration Analysis//
+Passes: 1
+Passes: 2
+Passes: 3
+Passes: 4
+Passes: 5
+Passes: 6
+Passes: 7
+Passes: 8
+Passes: 9
+Passes: 10
+Passes: 11
+Passes: 12
+Passes: 13
+Passes: 14
+Passes: 15
+Passes: 16
+Passes: 17
+Passes: 18
+Passes: 19
+Passes: 20
+Passes: 21
+Passes: 22
+Passes: 23
+Passes: 24
+Passes: 25
+Passes: 26
+Passes: 27
+Passes: 28
+Passes: 29
+Passes: 30
+Passes: 31
+Passes: 32
+Passes: 33
+Passes: 34
+Passes: 35
+Passes: 36
+Passes: 37
+Passes: 38
+Passes: 39
+Passes: 40
+Passes: 41
+Passes: 42
+Passes: 43
+Passes: 44
+Passes: 45
+Passes: 46
+Passes: 47
+Passes: 48
+Passes: 49
+Passes: 50
+Passes: 51
+Passes: 52
+Passes: 53
+Passes: 54
+Passes: 55
+Passes: 56
+Passes: 57
+Passes: 58
+Passes: 59
+Passes: 60
+Passes: 61
+Passes: 62
+Passes: 63
+Passes: 64
+Passes: 65
+Passes: 66
+Passes: 67
+Passes: 68
+Passes: 69
+Passes: 70
+Passes: 71
+Passes: 72
+Passes: 73
+Passes: 74
+Passes: 75
+Passes: 76
+Passes: 77
+Passes: 78
+Passes: 79
+Passes: 80
+Passes: 81
+Passes: 82
+Passes: 83
+Passes: 84
+Passes: 85
+Passes: 86
+Passes: 87
+Passes: 88
+Passes: 89
+Passes: 90
+Passes: 91
+Passes: 92
+Passes: 93
+Passes: 94
+Passes: 95
+Passes: 96
+Passes: 97
+Passes: 98
+Passes: 99
+Passes: 100
+Value Iteration,43851,4967,5482,11710,2205,339,291,31,25,24,26,25,31,32,26,29,28,25,25,28,29,31,33,27,30,27,24,26,32,37,26,29,28,34,28,29,24,32,37,32,27,35,26,29,23,22,31,25,27,30,30,36,30,30,24,31,25,26,30,28,31,28,27,35,46,26,35,24,23,32,23,31,28,39,29,25,26,36,32,32,26,34,38,25,28,35,31,32,30,34,29,28,26,27,30,22,30,29,24,23
+
+This is your optimal policy:
+num of rows in policy is 11
+[>,>,v,*,v,v,*,>,>,>,<]
+[>,>,>,>,v,v,*,>,>,^,^]
+[>,>,^,*,>,>,>,^,*,^,^]
+[^,*,^,*,>,>,>,^,*,^,^]
+[^,*,*,v,*,*,*,*,*,^,^]
+[>,>,>,>,>,>,>,v,*,^,^]
+[*,*,*,>,^,*,>,>,>,^,*]
+[>,>,>,^,*,*,*,>,^,*,v]
+[>,>,>,^,*,*,*,^,^,<,<]
+[>,>,^,^,*,*,*,^,^,<,<]
+
+
+
+//Policy Iteration Analysis//
+Total policy iterations: 1
+Total policy iterations: 2
+Total policy iterations: 3
+Total policy iterations: 4
+Total policy iterations: 5
+Total policy iterations: 6
+Total policy iterations: 7
+Total policy iterations: 8
+Total policy iterations: 9
+Total policy iterations: 10
+Total policy iterations: 11
+Total policy iterations: 12
+Total policy iterations: 13
+Total policy iterations: 14
+Total policy iterations: 15
+Total policy iterations: 16
+Total policy iterations: 17
+Total policy iterations: 18
+Total policy iterations: 19
+Total policy iterations: 20
+Total policy iterations: 21
+Total policy iterations: 22
+Total policy iterations: 23
+Total policy iterations: 24
+Total policy iterations: 25
+Total policy iterations: 26
+Total policy iterations: 27
+Total policy iterations: 28
+Total policy iterations: 29
+Total policy iterations: 30
+Total policy iterations: 31
+Total policy iterations: 32
+Total policy iterations: 33
+Total policy iterations: 34
+Total policy iterations: 35
+Total policy iterations: 36
+Total policy iterations: 37
+Total policy iterations: 38
+Total policy iterations: 39
+Total policy iterations: 40
+Total policy iterations: 41
+Total policy iterations: 42
+Total policy iterations: 43
+Total policy iterations: 44
+Total policy iterations: 45
+Total policy iterations: 46
+Total policy iterations: 47
+Total policy iterations: 48
+Total policy iterations: 49
+Total policy iterations: 50
+Total policy iterations: 51
+Total policy iterations: 52
+Total policy iterations: 53
+Total policy iterations: 54
+Total policy iterations: 55
+Total policy iterations: 56
+Total policy iterations: 57
+Total policy iterations: 58
+Total policy iterations: 59
+Total policy iterations: 60
+Total policy iterations: 61
+Total policy iterations: 62
+Total policy iterations: 63
+Total policy iterations: 64
+Total policy iterations: 65
+Total policy iterations: 66
+Total policy iterations: 67
+Total policy iterations: 68
+Total policy iterations: 69
+Total policy iterations: 70
+Total policy iterations: 71
+Total policy iterations: 72
+Total policy iterations: 73
+Total policy iterations: 74
+Total policy iterations: 75
+Total policy iterations: 76
+Total policy iterations: 77
+Total policy iterations: 78
+Total policy iterations: 79
+Total policy iterations: 80
+Total policy iterations: 81
+Total policy iterations: 82
+Total policy iterations: 83
+Total policy iterations: 84
+Total policy iterations: 85
+Total policy iterations: 86
+Total policy iterations: 87
+Total policy iterations: 88
+Total policy iterations: 89
+Total policy iterations: 90
+Total policy iterations: 91
+Total policy iterations: 92
+Total policy iterations: 93
+Total policy iterations: 94
+Total policy iterations: 95
+Total policy iterations: 96
+Total policy iterations: 97
+Total policy iterations: 98
+Total policy iterations: 99
+Total policy iterations: 100
+Policy Iteration,9862,2922,519,3449,8577,57,220,85,36,28,29,26,24,33,28,35,31,27,25,24,24,22,30,31,28,28,39,32,32,38,35,27,27,24,32,22,39,40,25,30,26,27,24,35,28,25,33,38,28,35,25,26,28,38,31,30,23,30,23,28,24,31,38,31,25,25,26,24,28,30,32,27,30,29,40,31,26,22,29,34,29,30,30,28,34,26,28,25,40,37,29,30,29,38,37,30,25,26,24,26
+Passes: 22
+
+This is your optimal policy:
+num of rows in policy is 11
+[>,>,v,*,v,v,*,>,>,>,>]
+[>,>,>,>,v,v,*,>,>,^,^]
+[>,>,^,*,>,>,>,^,*,^,^]
+[^,*,^,*,>,>,>,^,*,^,^]
+[^,*,*,v,*,*,*,*,*,^,^]
+[>,>,>,>,>,>,v,v,*,^,^]
+[*,*,*,>,^,*,>,>,>,^,*]
+[>,>,>,^,*,*,*,>,^,*,v]
+[>,>,>,^,*,*,*,^,^,<,<]
+[>,>,^,^,*,*,*,^,^,<,<]
+
+
+
+//Q Learning Analysis//
+Q Learning,1136,231,175,322,240,176,306,71,468,251,116,260,93,166,136,42,186,50,107,100,129,48,71,33,95,36,52,289,294,122,109,42,34,740,77,54,84,34,42,56,113,91,38,76,85,47,48,214,105,32,67,261,35,104,46,153,49,60,55,38,44,36,48,29,54,99,77,36,63,138,63,95,61,56,46,47,37,48,86,139,103,100,70,42,185,56,43,39,129,116,84,92,39,146,41,105,56,28,73,55
+Passes: 22
+
+This is your optimal policy:
+num of rows in policy is 11
+[v,>,v,*,v,v,*,>,>,>,^]
+[^,>,>,>,^,<,*,^,^,<,<]
+[<,v,>,*,^,>,v,>,*,^,<]
+[^,*,v,*,v,>,>,^,*,^,<]
+[^,*,*,v,*,*,*,*,*,v,^]
+[^,<,^,>,>,>,v,v,*,<,^]
+[*,*,*,^,^,*,>,>,>,^,*]
+[<,v,>,^,*,*,*,>,^,*,^]
+[>,>,^,^,*,*,*,^,^,<,>]
+[>,>,^,>,*,*,*,^,^,>,v]
